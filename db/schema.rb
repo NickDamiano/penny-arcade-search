@@ -11,7 +11,17 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20150307175240) do
+ActiveRecord::Schema.define(version: 20150307213650) do
+
+  create_table "comic_tags", force: :cascade do |t|
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
+    t.integer  "tag_id"
+    t.integer  "comic_id"
+  end
+
+  add_index "comic_tags", ["comic_id"], name: "index_comic_tags_on_comic_id"
+  add_index "comic_tags", ["tag_id"], name: "index_comic_tags_on_tag_id"
 
   create_table "comics", force: :cascade do |t|
     t.string   "page_url"
@@ -19,6 +29,12 @@ ActiveRecord::Schema.define(version: 20150307175240) do
     t.date     "publish_date"
     t.datetime "created_at",   null: false
     t.datetime "updated_at",   null: false
+  end
+
+  create_table "tags", force: :cascade do |t|
+    t.string   "tagname"
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
   end
 
 end
