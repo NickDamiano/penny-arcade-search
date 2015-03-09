@@ -42,8 +42,22 @@ module PennyArcadeSearch
       end 
       comics 
     end
+
+    def self.saveComics(comics)
+      # this code will iterate through the comics array and build out another array of active record
+      #   comic records. Then it will write it all at once using activerecord import
+      # 
+      # books = []
+      # 10.times do |i| 
+      #   books << Book.new(:name => "book #{i}")
+      # end
+      # Book.import books
+    end
   end
 end
+
+### Practice code
+
 today = Date.new(2015, 2, 15)
 end_date = Date.today
 test = PennyArcadeSearch::ComicScraper.run(today, end_date)
