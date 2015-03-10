@@ -31,8 +31,9 @@ module PennyArcadeSearch
     def self.run(start_date, end_date)
       comics = []
       date = start_date
-
+      # Add threading here?
       while ( date < end_date )
+
         result = scrapePage(date)
 
         if result["headline"] != "404"
@@ -40,7 +41,8 @@ module PennyArcadeSearch
         end
         date = date + 1 
       end 
-      comics 
+      p comics 
+      saveComics(comics)
     end
 
     def self.saveComics(comics)
@@ -52,6 +54,14 @@ module PennyArcadeSearch
       #   books << Book.new(:name => "book #{i}")
       # end
       # Book.import books
+      comics_to_save = []
+      comics.each do |comic|
+        split_page = comic[page_url].split('/')
+        date = Date.new(split_page[4], split_page[5], split_page[6])
+        comics_to_save << Comic.new(page_url: comic["page_url"], 
+          img_url: comic["img_url"], publish_date: date)
+      end
+      Comic.import comics_to_save
     end
   end
 end
