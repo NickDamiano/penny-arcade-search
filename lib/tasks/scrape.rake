@@ -13,9 +13,10 @@ namespace :scrape do
     p 'scraping newest comics not in the database'
     start_date = Comic.reorder('publish_date').last.publish_date
     start_date = (start_date + 1).to_s
-    p "Starting scrape on #{start_date}."
+    p "Starting scrape on #{start_date}"
     date = start_date.split('-').map{|num| num.to_i}
-    start_date = Date.new(date[0], date[1], date[2]+1)
+    start_date = Date.new(date[0], date[1], date[2])
+    p "Start date is #{start_date}"
     end_date = Date.today
     Scraper.run(start_date, end_date)
     p 'Scrape complete!'

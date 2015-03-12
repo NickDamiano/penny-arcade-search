@@ -32,9 +32,7 @@ require 'wombat'
       date = start_date
       # Add threading here?
       while ( date < end_date )
-
         result = scrapePage(date)
-
         if result["headline"] != "404"
           comics.push(result)
         end
