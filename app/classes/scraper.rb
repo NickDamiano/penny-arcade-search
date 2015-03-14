@@ -9,6 +9,7 @@ require 'wombat'
       year        = parsed_date[0]
       month       = parsed_date[1]
       day         = parsed_date[2]
+      p "Processing #{parsed_date}"
 
       Wombat.crawl do 
         base_url 'http://www.penny-arcade.com'
