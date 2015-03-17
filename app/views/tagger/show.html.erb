@@ -1,3 +1,8 @@
 <img src="<%= @comic.img_url %>">
 <%= @comic.publish_date %>
-date above brah
+<h1 class="please">I am an H1</h1>
+<%= form_tag('/tagger', method: 'post') do %>
+	<%= label_tag(:tag, "Tags") %>
+	<%= text_field_tag(:tag) %>
+	<%= submit_tag("Submit") %>
+<% end %>
