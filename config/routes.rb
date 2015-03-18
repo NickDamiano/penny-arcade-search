@@ -1,6 +1,6 @@
 Rails.application.routes.draw do
   # root 'scraper#index'
-
+  get '/tagger' => 'tagger#index'
   get 'tagger/:date' => 'tagger#show'
   post '/tagger' => 'tagger#save'
   # The priority is based upon order of creation: first created -> highest priority.
