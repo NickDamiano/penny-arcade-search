@@ -17,7 +17,8 @@ class TaggerController < ApplicationController
     @comic  = session[:comic_id]
     @tags   = params[:tagger]
     ComicTag.save_tags(@tags, session[:comic_id])
-    comic   = Comic.find(@comic-1)
+    current_comic   = Comic.find(@comic)
+    comic = current_comic.previous
     date    = comic.publish_date.to_s
     redirect_to "/tagger/#{date}"
   end
