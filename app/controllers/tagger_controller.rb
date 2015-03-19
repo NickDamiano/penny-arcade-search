@@ -1,5 +1,9 @@
 class TaggerController < ApplicationController
   def index 
+    # get the last date in the record
+    last_record= Comic.reorder('publish_date').last.publish_date.to_s
+    redirect_to "/tagger/#{last_record}"
+    # redirect to that page for show
   end
 
   def show 
@@ -13,7 +17,7 @@ class TaggerController < ApplicationController
     @comic  = session[:comic_id]
     @tags   = params[:tagger]
     ComicTag.save_tags(@tags, session[:comic_id])
-    comic   = Comic.find(@comic+1)
+    comic   = Comic.find(@comic-1)
     date    = comic.publish_date.to_s
     redirect_to "/tagger/#{date}"
   end
