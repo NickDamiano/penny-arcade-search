@@ -11,19 +11,18 @@ require 'wombat'
       day         = parsed_date[2]
       p "Processing #{parsed_date}"
 
-      Wombat.crawl do 
+      result = Wombat.crawl do 
         base_url 'http://www.penny-arcade.com'
 
         path "/comic/#{year}/#{month}/#{day}"
 
         headline xpath: '//h2'
 
-        # Get the page url
-        page_url xpath: "//*[@id = 'comicFrame']//@href"
-
         # Get the img url
         img_url xpath: "//*[@id = 'comicFrame']/a/img//@src"
       end
+      result["page_url"] = "http://www.penny-arcade.com/comic/#{year}/#{month}/#{day}"
+      result 
     end
 
     # Builds an array of comic
@@ -31,13 +30,14 @@ require 'wombat'
     def self.run(start_date, end_date)
       comics = []
       date = start_date
-      # Add threading here?
       while ( date < end_date )
         result = scrapePage(date)
         if result["headline"] != "404"
           comics.push(result)
+          p "#{result}"
         end
         date = date + 1 
+        p "new date is #{date}"
       end 
       p comics 
       saveComics(comics)
