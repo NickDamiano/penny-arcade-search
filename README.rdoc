@@ -1,28 +1,21 @@
 == README
 
-This README would normally document whatever steps are necessary to get the
-application up and running.
+I love the web comic "Penny Arcade". 
 
-Things you may want to cover:
+I frequently want to look up and share comics I read. 
 
-* Ruby version
+When I did try, I could never find the comic using the search feature. 
 
-* System dependencies
+This application aims to fix that by combining a web scraper, an application to associate tags with comics, and an application to look up comics by tags. 
 
-* Configuration
+- The scraper consists of a scraper module and a rake task to scrape all penny arcade comics or just the most recent ones that aren't in the database. 
 
-* Database creation
+It's run using either rake scrape:all or rake scrape:recent
 
-* Database initialization
+Comics are saved into the database with their image url, page url, and date. 
 
-* How to run the test suite
+- The tagger retrieves a comic based on the date in the route, puts that comic on the page and populates the tag form with existing tags in the database for that comic. Any tags in the form when the submit button is pressed are saved into the database through a join table for  comics and tags. On submit, the previous comic by date is shown so that you can start tagging at the most recent comic and work backwards to 1998. 
 
-* Services (job queues, cache servers, search engines, etc.)
+It appears that there were extensive indexes used 2010 and before, so the first priority for tags would be now until then. 
 
-* Deployment instructions
-
-* ...
-
-
-Please feel free to use a different markup language if you do not plan to run
-<tt>rake doc:app</tt>.
+- The searcher is a page that is not yet complete. It will autopopulate the search field, and on submit, retrieve the comic, and display the first panel for each related comic hyperlinked to the penny arcade site - in order to drive traffic to them.  
