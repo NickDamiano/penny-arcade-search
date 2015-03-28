@@ -5,7 +5,7 @@
 	<%= submit_tag("Submit") %>
 <% end %>
 <script type="text/javascript">
-	var tagger = document.getElementById("tagger")
-	tagger.value = @tags
-	tagger.focus()
+	tag_field = document.getElementById("tagger")
+	tag_field.value = @tags
+	tag_field.focus()
 </script>
