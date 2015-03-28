@@ -1,7 +1,7 @@
 <img src="<%= @comic.img_url %>">
 <%= form_tag('/tagger', method: 'post') do %>
 	<%= label_tag(:tagger, "Tags") %>
-	<%= text_field_tag(:tagger, :value => @tags) %>
+	<%= text_field_tag(:tagger, @tags) %>
 	<%= submit_tag("Submit") %>
 <% end %>
 <script type="text/javascript">
