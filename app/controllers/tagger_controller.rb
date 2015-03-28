@@ -9,7 +9,8 @@ class TaggerController < ApplicationController
   def show 
     date    = params[:date]
     @comic  = Comic.find_by(publish_date: date)
-    @tags   = Comic
+    @tags   = @comic.tags.map{|tag_object| tag_object.tagname }
+    p @tags
     session[:comic_id] = @comic.id
   end
 
