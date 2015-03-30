@@ -1,1 +1,8 @@
 I am a search page!
+
+<%= form_tag('/search', method: 'post') do %>
+	<%= label_tag(:searcher, "Search Comics") %>
+	<%= text_field_tag(:searcher) %>
+	<%= submit_tag("Submit") %>
+<% end %>
+

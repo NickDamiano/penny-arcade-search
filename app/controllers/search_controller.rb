@@ -16,4 +16,23 @@ class SearchController < ApplicationController
     # have people who work for them go through and label comics for their own search. or give them the
     # database tables
   end
+
+  def results
+    search_terms_complete  = params[:searcher]
+    individual_words = search_terms_complete.split(' ')
+    # comics stores an array of hashes - where each hash
+    # contains the record information about comics matching
+    # the tags
+    @comics = []
+    individual_words.each do |word|
+      word.downcase
+      tag = Tag.find_by(tagname: word)
+      if tag
+        @comics.push(tag.comics)
+      end
+    end
+    tag = Tag.find_by(tagname: search_terms_complete)
+    @comics.push(tag.comics)
+    @comics.uniq! 
+  end
 end
