@@ -11,6 +11,9 @@ class SearchController < ApplicationController
     #     so if i type wow fart it will show the result for wow but not wow fart. 
     # or maybe it does a call for each one - then tells you which words it matched and which it didn't
     # report inaccurate search button will send me an email with the search terms and results
-    
+    # also have number of results - so if you type in dick joke it will say 210 results - fart joke too
+    # after i build it out, lock down the database or make a back up copy, then PA can use the code to 
+    # have people who work for them go through and label comics for their own search. or give them the
+    # database tables
   end
 end

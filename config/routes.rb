@@ -3,6 +3,7 @@ Rails.application.routes.draw do
   get '/tagger' => 'tagger#index'
   get 'tagger/:date' => 'tagger#show'
   post '/tagger' => 'tagger#save'
+  get '/search' => 'search#show'
   # The priority is based upon order of creation: first created -> highest priority.
   # See how all your routes lay out with "rake routes".
 
