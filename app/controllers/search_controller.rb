@@ -31,7 +31,7 @@ class SearchController < ApplicationController
     @comics = []
     individual_words.each do |word|
       tag = Tag.find_by(tagname: word)
-      if tag
+      if tag != []
         @comics.push(tag.comics)
       end
     end
@@ -39,11 +39,12 @@ class SearchController < ApplicationController
     @comics.push(tag.comics)
     @comics.uniq! 
     p "comics is #{@comics}"
-    p "comics second element is #{@comics[2]}"
-    @comic_arr = []
-    # @comics[1].each do |comic|
-    #   @comics_arr.push({page: comic.page_url, image: comic.image_url, date: comic.publish_date })
-    # end
+    p "comics second element is #{@comics[1][1]}"
+    @comics_arr = []
+    @comics[1].each do |comic|
+      @comics_arr.push({page: comic.page_url, image: comic.img_url, date: comic.publish_date })
+    end
+    p @comics_arr
 
   end
 end
