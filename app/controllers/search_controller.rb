@@ -18,14 +18,18 @@ class SearchController < ApplicationController
   end
 
   def results
-    search_terms_complete  = params[:searcher]
+    # Set a variable for the entire string
+    search_terms_complete  = params[:searcher].downcase
+
+    # set a variable for an array of the individual words
     individual_words = search_terms_complete.split(' ')
+
     # comics stores an array of hashes - where each hash
     # contains the record information about comics matching
     # the tags
+    # TODO move logic that finds comics to the model
     @comics = []
     individual_words.each do |word|
-      word.downcase
       tag = Tag.find_by(tagname: word)
       if tag
         @comics.push(tag.comics)
@@ -34,5 +38,12 @@ class SearchController < ApplicationController
     tag = Tag.find_by(tagname: search_terms_complete)
     @comics.push(tag.comics)
     @comics.uniq! 
+    p "comics is #{@comics}"
+    p "comics second element is #{@comics[2]}"
+    @comic_arr = []
+    # @comics[1].each do |comic|
+    #   @comics_arr.push({page: comic.page_url, image: comic.image_url, date: comic.publish_date })
+    # end
+
   end
 end
