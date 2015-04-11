@@ -1,3 +1,5 @@
+
+
 class SearchController < ApplicationController
   def show
     # make show erb page with search bar centered up top - 
@@ -23,28 +25,33 @@ class SearchController < ApplicationController
 
     # set a variable for an array of the individual words
     individual_words = search_terms_complete.split(' ')
-
-    # comics stores an array of hashes - where each hash
-    # contains the record information about comics matching
-    # the tags
-    # TODO move logic that finds comics to the model
+    # create an empty array to push matching comics db objects into
     @comics = []
+    # iterate through the array of split words and look for matches
+    #  if a match is found, push the related comics objects into
+    #  the array (assuming the tag wasn't nil)
     individual_words.each do |word|
       tag = Tag.find_by(tagname: word)
-      if tag != []
+      if tag != [] && tag != nil
         @comics.push(tag.comics)
       end
     end
+    # look up the tag with the complete search string and push it
+    # it into the comics db obj array
     tag = Tag.find_by(tagname: search_terms_complete)
-    @comics.push(tag.comics)
-    @comics.uniq! 
-    p "comics is #{@comics}"
-    p "comics second element is #{@comics[1][1]}"
-    @comics_arr = []
-    @comics[1].each do |comic|
-      @comics_arr.push({page: comic.page_url, image: comic.img_url, date: comic.publish_date })
+    if tag != nil
+      @comics.push(tag.comics)
     end
-    p @comics_arr
-
+    # remove duplicates
+    @comics.uniq! 
+    # create an array to hold the hashes with page url and img url
+    @comics_arr = []
+    p "comics is #{@comics}"
+    # binding.pry
+    unless @comics.empty?
+      @comics[0].each do |comic|
+        @comics_arr.push({page: comic.page_url, image: comic.img_url, date: comic.publish_date })
+      end
+    end
   end
 end
