@@ -30,6 +30,7 @@ require 'wombat'
     def self.run(start_date, end_date)
       comics = []
       date = start_date
+      #TODO Change from while to do
       while ( date < end_date )
         result = scrapePage(date)
         if result["headline"] != "404"
