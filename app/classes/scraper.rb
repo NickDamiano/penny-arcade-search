@@ -29,8 +29,9 @@ require 'wombat'
     #   date parameters are date stamps and to be compared
     def self.run(start_date, end_date)
       comics = []
+      # Below variable rename seems unnecessary TODO
       date = start_date
-      #TODO Change from while to do
+      
       while ( date < end_date )
         result = scrapePage(date)
         if result["headline"] != "404"
@@ -54,7 +55,7 @@ require 'wombat'
         if split_page[4] != nil
           date = Date.new(split_page[4].to_i, split_page[5].to_i, split_page[6].to_i)
           comics_to_save << ::Comic.new(page_url: comic["page_url"], 
-            img_url: comic["img_url"], publish_date: date)
+            img_url: comic["img_url"], publish_date: date, comic_title: comic["headline"])
         end
       end
       Comic.import comics_to_save
