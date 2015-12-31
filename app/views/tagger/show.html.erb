@@ -1,3 +1,4 @@
+<h1><%= @comic.comic_title %></h1>
 <img src="<%= @comic.img_url %>">
 <%= form_tag('/tagger', method: 'post') do %>
 	<%= label_tag(:tagger, "Tags") %>
