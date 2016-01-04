@@ -2,7 +2,8 @@ namespace :scrape do
   desc 'Scrapes Penny Arcade Comics from first in 1998 to today'
   task :all => :environment do 
     p 'Starting scrape from 1998 to today'
-    start_date = Date.new(2015, 11, 18)
+    # start_date = Date.new(1998, 11, 18)
+    start_date = Date.new(1998, 11, 18)
     end_date = Date.today
     Scraper.run(start_date, end_date)
     p 'Scrape complete!'
