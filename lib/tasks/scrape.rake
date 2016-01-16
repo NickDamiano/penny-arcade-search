@@ -5,9 +5,13 @@ namespace :scrape do
     # start_date = Date.new(1998, 11, 18)
     start_date = Date.new(1998, 11, 18)
     end_date = Date.today
-    RecentScrape = Scraper.new(start_date, end_date)
-    RecentScrape.run
-    # Scraper.run(start_date, end_date)
+    date_range = Array (start_date..end_date)
+    # until that array is empty, pop off 50 dates and process them
+    until date_range.empty? do
+      chunk = date_range.shift(50)
+      Scraper.run(chunk)
+    end
+    Scraper.run(chunk)
     p 'Scrape complete!'
   end
 
@@ -21,8 +25,14 @@ namespace :scrape do
     start_date = Date.new(date[0], date[1], date[2])
     p "Start date is #{start_date}"
     end_date = Date.today
-    PennyScraper = Scraper.new(start_date, end_date)
-    PennyScraper.run
+    # create an array of date objects 
+    date_range = Array (start_date..end_date)
+    # until that array is empty, pop off 50 dates and process them
+    until date_range.empty? do
+      chunk = date_range.shift(50)
+      Scraper.run(chunk)
+      sleep(60)
+    end
     p 'Scrape complete!'
   end
 end
