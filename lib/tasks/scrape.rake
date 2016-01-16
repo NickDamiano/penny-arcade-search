@@ -18,7 +18,12 @@ namespace :scrape do
   desc 'Scrapes the newest comics not in the database'
   task :recent => :environment do 
     p 'scraping newest comics not in the database'
-    start_date = Comic.reorder('publish_date').last.publish_date
+    if Comic.all.count == 0
+      p "There are no comics - starting from beginning"
+      start_date = Date.new(1998, 11, 18)
+    else
+      start_date = Comic.reorder('publish_date').last.publish_date
+    end
     start_date = (start_date + 1).to_s
     p "Starting scrape on #{start_date}"
     date = start_date.split('-').map{|num| num.to_i}
@@ -30,8 +35,12 @@ namespace :scrape do
     # until that array is empty, pop off 50 dates and process them
     until date_range.empty? do
       chunk = date_range.shift(50)
-      Scraper.run(chunk)
-      sleep(60)
+      begin
+        Scraper.run(chunk)
+      rescue
+        sleep(45)
+        retry
+      end
     end
     p 'Scrape complete!'
   end
