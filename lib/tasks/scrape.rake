@@ -5,7 +5,9 @@ namespace :scrape do
     # start_date = Date.new(1998, 11, 18)
     start_date = Date.new(1998, 11, 18)
     end_date = Date.today
-    Scraper.run(start_date, end_date)
+    RecentScrape = Scraper.new(start_date, end_date)
+    RecentScrape.run
+    # Scraper.run(start_date, end_date)
     p 'Scrape complete!'
   end
 
@@ -19,7 +21,8 @@ namespace :scrape do
     start_date = Date.new(date[0], date[1], date[2])
     p "Start date is #{start_date}"
     end_date = Date.today
-    Scraper.run(start_date, end_date)
+    PennyScraper = Scraper.new(start_date, end_date)
+    PennyScraper.run
     p 'Scrape complete!'
   end
 end
